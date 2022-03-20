@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import Paper from "@mui/material/Paper";
@@ -16,7 +16,27 @@ const darkTheme = createTheme({
   },
 });
 
+function getNewQuote() {}
+
 function App() {
+  const [quote, setQuote] = useState("hello");
+
+  useEffect(() => {
+    const queryString = "locahost:3000/getQuote/";
+
+    fetch(queryString)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Failed to get a good response from api");
+        }
+      })
+      .then((data) => {
+        setQuote(data)
+      });
+  });
+
   return (
     <ThemeProvider theme={darkTheme}>
       <Paper
@@ -53,7 +73,15 @@ function App() {
           </Paper>
 
           <Paper elevation={0} sx={{ flex: 1, height: "100%", width: "100%" }}>
-            <Card sx={{ minWidth: 275 ,  textAlign: "initial", alignItems: "initial", justifyContent: "initial", height: "initial"}}>
+            <Card
+              sx={{
+                minWidth: 275,
+                textAlign: "initial",
+                alignItems: "initial",
+                justifyContent: "initial",
+                height: "initial",
+              }}
+            >
               <CardContent>
                 <Typography
                   sx={{ fontSize: 14 }}
@@ -63,7 +91,7 @@ function App() {
                   Word of the Day
                 </Typography>
                 <Typography variant="h5" component="div">
-                  benevolent
+                  {quote}
                 </Typography>
                 <Typography sx={{ mb: 1.5 }} color="text.secondary">
                   adjective
