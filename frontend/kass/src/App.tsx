@@ -16,13 +16,12 @@ const darkTheme = createTheme({
   },
 });
 
-function getNewQuote() {}
 
 function App() {
   const [quote, setQuote] = useState("hello");
 
   useEffect(() => {
-    const queryString = "locahost:3000/getQuote/";
+    const queryString = "127.0.0.1:3001/getQuote/";
 
     fetch(queryString)
       .then((response) => {
@@ -33,7 +32,8 @@ function App() {
         }
       })
       .then((data) => {
-        setQuote(data)
+        console.log(data)
+        // setQuote(data)
       });
   });
 
