@@ -21,10 +21,11 @@ function App() {
   const [quote, setQuote] = useState("hello");
 
   useEffect(() => {
-    const queryString = "127.0.0.1:3001/getQuote/";
+    const queryString = "/getQuote";
 
     fetch(queryString)
       .then((response) => {
+        console.log(response)
         if (response.ok) {
           return response.json();
         } else {
