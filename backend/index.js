@@ -9,7 +9,7 @@ app.get('/getQuote', (req, res) => {
   .then(response => {
     console.log(`statusCode: ${response.status}`)
     console.log("quote received from kanye api: " + response.data.quote)
-    res.json(response.data.quote)
+    res.json(response.data)
   })
   .catch(error => {
     console.error(error)
